@@ -1,0 +1,34 @@
+###Get a list of all products
+GET http://localhost:5000/products
+
+### Create a product
+POST http://localhost:5000/products
+Content-Type: application/json
+ 
+{
+  "name": "MacBook Air",
+  "price": 2100
+
+}
+
+### GET a product by id
+GET http://localhost:5000/products/5f56558a9ef188261c513634
+
+### Update a product by id
+PATCH  http://localhost:5000/products/5f548e04dd5a5f0b04b63e5f
+Content-Type: application/json
+
+{
+  "name": "Nokia",
+  "price": 666
+}
+
+
+### Delete a product by id
+DELETE  http://localhost:5000/products/5f548de0ffbb70051473465d
+
+### 404 route Not Found
+# GET http://localhost:5000/
+GET http://localhost:5000/abc_xyz
+
+
