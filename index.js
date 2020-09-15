@@ -1,13 +1,8 @@
 const express = require("express");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
-const connectDB = require("./config/db");
 const createError = require("http-errors");
-
-// Load config
-dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -15,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Initialize DB
+require("./config/db")();
 
 // Import Routes
 const ProductRoute = require("./Routes/Product.routes");

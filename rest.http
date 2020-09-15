@@ -12,15 +12,15 @@ Content-Type: application/json
 }
 
 ### GET a product by id
-GET http://localhost:5000/products/5f56558a9ef188261c513634
+GET http://localhost:5000/products/5f5f0e7f51f6850f04b14e53
 
 ### Update a product by id
-PATCH  http://localhost:5000/products/5f548e04dd5a5f0b04b63e5f
+PATCH  http://localhost:5000/products/5f5f0e7f51f6850f04b14e53
 Content-Type: application/json
 
 {
   "name": "Nokia",
-  "price": 666
+  "price": 996
 }
 
 

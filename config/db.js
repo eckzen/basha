@@ -1,19 +1,36 @@
 const mongoose = require("mongoose");
 
-const connectDB = async () => {
-  try {
-    // const conn = await mongoose.connect(`${dbConfig}/${dbName}`, {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+module.exports = () => {
+  const conn = mongoose
+    .connect(process.env.MONGODB_URI, {
+      dbName: process.env.DB_NAME,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
-      useCreateIndex: true,
-    });
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-};
+    })
+    .then(() => {
+      console.log("MongoDB connected: ${conn.connection.host}");
+    })
+    .catch((err) => console.log(err.message));
 
-module.exports = connectDB;
+  mongoose.connection.on("connected", () => {
+    console.log("Mongoose connected to db...");
+  });
+
+  mongoose.connection.on("error", (err) => {
+    console.error.bind(console, "connection error:");
+  });
+
+  mongoose.connection.on("disconnected", () => {
+    console.log("Mongoose connection is disconnected...");
+  });
+
+  process.on("SIGINT", () => {
+    mongoose.connection.close(() => {
+      console.log(
+        "Mongoose connection is disconnected due to app termination..."
+      );
+      process.exit(0);
+    });
+  });
+};
